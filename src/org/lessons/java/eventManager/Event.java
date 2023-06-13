@@ -9,8 +9,10 @@ public class Event {
     //ATTRIBUTI -----------------------------------------------------------------------------------------
     private String title;
     private LocalDate date;
-    private final int SEAT_CAPACITY; //costante
     private int bookedSeats;
+    //costanti --------
+    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final int SEAT_CAPACITY;
 
 
     //COSTRUTTORE -----------------------------------------------------------------------------------------
@@ -25,8 +27,7 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            throw new RuntimeException("La data " + date.format(formatter) + " non è valida. Deve essere successiva alla data odierna.");
+            throw new RuntimeException("La data " + date.format(DATE_FORMATTER) + " non è valida. Deve essere successiva alla data odierna.");
         }
         //numero di posti totali
         if(isSeatCapacityValid(SEAT_CAPACITY)) {
@@ -45,6 +46,9 @@ public class Event {
     }
     public LocalDate getDate() {
         return date;
+    }
+    public String getFormattedDate(){
+        return date.format(DATE_FORMATTER);
     }
     public int getSeatsCapacity() {
         return SEAT_CAPACITY;
@@ -69,8 +73,7 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            throw new RuntimeException("La data " + date.format(formatter) + " non è valida. Deve essere successiva alla data odierna.");
+            throw new RuntimeException("La data " + date.format(DATE_FORMATTER) + " non è valida. Deve essere successiva alla data odierna.");
         }
     }
 
@@ -116,8 +119,7 @@ public class Event {
     //override ---------
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return "Titolo: " + title + ", Data: " + date.format(formatter);
+        return "Titolo: " + title + ", Data: " + date.format(DATE_FORMATTER);
     }
 
     //validatori ---------

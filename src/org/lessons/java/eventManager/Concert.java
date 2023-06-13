@@ -2,14 +2,18 @@ package org.lessons.java.eventManager;
 
 //IMPORT
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 public class Concert extends Event{
 
     //ATTRIBUTI -----------------------------------------------------------------------------------------
-    LocalTime time;
-    BigDecimal price;
+    private LocalTime time;
+    private BigDecimal price;
+    //costanti -------
+    private final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
 
     //COSTRUTTORE -----------------------------------------------------------------------------------------
     public Concert(String title, LocalDate date, int SEAT_CAPACITY, LocalTime time, BigDecimal price) throws RuntimeException {
@@ -33,6 +37,15 @@ public class Concert extends Event{
     public BigDecimal getPrice() {
         return price;
     }
+    public String getFormattedTime(){
+        return time.format(TIME_FORMATTER);
+    }
+    public String getFormattedDateTime() {
+        return getFormattedDate() + " - " + getFormattedTime();
+    }
+    public String getFormattedPrice() {
+        return new DecimalFormat("###,###.00€").format(price);
+    }
 
     //SETTER -----------------------------------------------------------------------------------------
     public void setTime(LocalTime time) {
@@ -47,6 +60,13 @@ public class Concert extends Event{
     }
 
     //METODI -----------------------------------------------------------------------------------------
+    //override
+
+    @Override
+    public String toString() {
+        return "Data e ora: " + getFormattedDateTime() + ", Titolo: " + getTitle() + ", Prezzo: " + getFormattedPrice();
+    }
+
     //validatori ---------
     private boolean isPriceValid(BigDecimal price) {
         //non accetto prezzi negativi (o è ok perché accetto concerti gratuiti)
