@@ -18,6 +18,8 @@ public class Main {
         //entro nel menu per la gestione delle disdette
         em.cancelMenu();
 
+
+
         //chiudo lo scanner
         em.closeScanner();
 

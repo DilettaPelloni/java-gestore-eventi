@@ -127,6 +127,7 @@ public class Event {
         //la confronto con la data dell'evento
         return today.isAfter(this.date);
     }
+    //ho reso i seguenti validatori statici così posso usarli per validare al di fuori della classe
     public static boolean isDateValid(LocalDate date) {
         //prendo la data di oggi
         LocalDate today = LocalDate.now();
