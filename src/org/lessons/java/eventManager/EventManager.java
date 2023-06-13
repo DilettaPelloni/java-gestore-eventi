@@ -118,9 +118,7 @@ public class EventManager {
                 System.out.println(e.getMessage());
             }
             //Mostro lo stato dei posti
-            System.out.println("\nStato dell'evento: ");
-            System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
-            System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
+            event.printSeatState();
         }
     }
 
@@ -147,10 +145,7 @@ public class EventManager {
                 System.out.println(e.getMessage());
             }
             //Mostro lo stato dei posti
-            System.out.println("\nStato dell'evento: ");
-            System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
-            System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
+            event.printSeatState();
         }
     }
-
 }

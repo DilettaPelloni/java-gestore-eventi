@@ -115,6 +115,11 @@ public class Event {
         //diminuisco di 1 i posti prenotati
         this.bookedSeats --;
     }
+    public void printSeatState() {
+        System.out.println("\nStato dell'evento: ");
+        System.out.println("Numero di posti prenotati: " + bookedSeats);
+        System.out.println("Numero di posti disponibili: " + getAvailableSeats());
+    }
 
     //override ---------
     @Override
