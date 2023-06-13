@@ -10,13 +10,20 @@ public class EventManager {
 
     //ATTRIBUTI -----------------------------------------------------------------------------------------
     Event event; //per ora è prevista la gestione di un singolo evento
+    Scanner scan;
 
     //METODI -----------------------------------------------------------------------------------------
+    public void openScanner() {
+        scan = new Scanner(System.in);
+    }
+    public void closeScanner() {
+        if(scan != null) {
+            scan.close();
+        }
+    }
+
     public void createNewEvent() {
-
-        //apro lo scanner
-        Scanner scan = new Scanner(System.in);
-
+        System.out.println("-------------- BENVENUTO NEL MENU PER LA CREAZIONE DI UN NUOVO EVENTO --------------");
         //raccolgo il titolo ---------------------------------------------------------------
         String title;
         do {
@@ -81,7 +88,6 @@ public class EventManager {
             } while (year < 0);
 
             //creo la data
-
             try {
                 date = LocalDate.of(year, month, day);
                 //se la data non è valida stampo un messaggio
@@ -122,10 +128,53 @@ public class EventManager {
         }
 
         //stampo l'evento
+        System.out.println("Nuovo evento creato con successo:");
         System.out.println(event);
+    }
 
-        //chiudo lo scanner
-        scan.close();
+    public void bookingMenu() {
+        System.out.println("-------------- BENVENUTO NEL MENU PER LA PRENOTAZIONE --------------");
+        //chiedo all'utente se vuole procedere
+        String choice;
+        do {
+            System.out.println("Vuoi effettuare una prenotazione? s/n");
+            choice = scan.nextLine();
+            if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
+            }
+        } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
+
+        boolean letsBook = choice.equalsIgnoreCase("s");
+
+        //se l'utente vuole procedere
+        if(letsBook) {
+            //raccolgo il numero delle prenotazioni
+            int bookingNum = 0;
+            do {
+                System.out.println("Quanti posti vuoi prenotare?");
+                try {
+                    bookingNum = Integer.parseInt(scan.nextLine());
+                    if(bookingNum <= 0) {
+                        System.out.println("Il numero deve essere maggiore di 0");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Inserisci un numero");
+                }
+            } while(bookingNum <= 0);
+
+            //provo a prenotare un numero di volte pari a quello desiderato dall'utente
+            try {
+                for (int i = 0; i < bookingNum; i++) {
+                    event.bookSeat();
+                }
+                //se va tutto bene (bookSeat non ha tirato eccezioni)
+                System.out.println("Prenotazione di n° " + bookingNum +" posti avvenuta con successo");
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+
+
     }
 
 }
