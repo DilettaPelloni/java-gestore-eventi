@@ -12,6 +12,11 @@ public class EventManager {
     Event event; //per ora è prevista la gestione di un singolo evento
     Scanner scan;
 
+    //GETTER -----------------------------------------------------------------------------------------
+    public Event getEvent() {
+        return event;
+    }
+
     //METODI -----------------------------------------------------------------------------------------
     public void openScanner() {
         scan = new Scanner(System.in);
@@ -23,7 +28,7 @@ public class EventManager {
     }
 
     public void createNewEvent() {
-        System.out.println("-------------- BENVENUTO NEL MENU PER LA CREAZIONE DI UN NUOVO EVENTO --------------");
+        System.out.println("\n-------------- BENVENUTO NEL MENU PER LA CREAZIONE DI UN NUOVO EVENTO --------------");
         //raccolgo il titolo ---------------------------------------------------------------
         String title;
         do {
@@ -133,7 +138,7 @@ public class EventManager {
     }
 
     public void bookingMenu() {
-        System.out.println("-------------- BENVENUTO NEL MENU PER LA PRENOTAZIONE --------------");
+        System.out.println("\n-------------- BENVENUTO NEL MENU PER LA PRENOTAZIONE --------------");
         //chiedo all'utente se vuole procedere
         String choice;
         do {
@@ -169,12 +174,61 @@ public class EventManager {
                 }
                 //se va tutto bene (bookSeat non ha tirato eccezioni)
                 System.out.println("Prenotazione di n° " + bookingNum +" posti avvenuta con successo");
+                System.out.println("\nStato dell'evento: ");
+                System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
+                System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
         }
 
 
+    }
+
+    public void cancelMenu() {
+        System.out.println("\n-------------- BENVENUTO NEL MENU PER LA DISDETTA --------------");
+        //chiedo all'utente se vuole procedere
+        String choice;
+        do {
+            System.out.println("Vuoi effettuare una disdetta? s/n");
+            choice = scan.nextLine();
+            if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
+            }
+        } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
+
+        boolean letsCancel = choice.equalsIgnoreCase("s");
+
+        //se l'utente vuole procedere
+        if(letsCancel) {
+            //raccolgo il numero delle disdette
+            int cancelNum = 0;
+            do {
+                System.out.println("Quanti posti vuoi disdire?");
+                try {
+                    cancelNum = Integer.parseInt(scan.nextLine());
+                    if(cancelNum <= 0) {
+                        System.out.println("Il numero deve essere maggiore di 0");
+                    }
+                } catch (NumberFormatException e) {
+                    System.out.println("Inserisci un numero");
+                }
+            } while(cancelNum <= 0);
+
+            //provo a disdire un numero di volte pari a quello desiderato dall'utente
+            try {
+                for (int i = 0; i < cancelNum; i++) {
+                    event.cancelSeat();
+                }
+                //se va tutto bene (cancelSeat non ha tirato eccezioni)
+                System.out.println("Disdetta di n° " + cancelNum +" posti avvenuta con successo");
+                System.out.println("\nStato dell'evento: ");
+                System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
+                System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
+            } catch (RuntimeException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 
 }
