@@ -11,12 +11,19 @@ public class UtilityChecks {
     private UtilityChecks() {}
 
     //METODI -----------------------------------------------------------------------------------------
-    public static int requestDateElement(String type, int min, int max) {
+    public static int requestIntInRange(int min, int max) throws RuntimeException {
+
+        //verifico che min e max abbiano senso
+        if(min > max) {
+            throw new RuntimeException("Il minimo non può essere maggiore del massimo");
+        }
+
         //preparo result
-        int result = 0;
+        int result = min - 1;
+
         //comincio il ciclo
         do {
-            System.out.print(type + ": ");
+            System.out.println("Inserisci un numero: ");
             //se mi viene dato qualcosa di diverso da un numero lancio un'eccezione
             try {
                 result = Integer.parseInt(Main.SCAN.nextLine());
@@ -25,7 +32,7 @@ public class UtilityChecks {
                     System.out.println("Il numero deve essere compreso fra " + min + " e " + max);
                 }
             } catch (NumberFormatException e){
-                System.out.println("Inserisci un numero");
+                System.out.println("Devi inserire un numero!");
             }
         } while (result < min || result > max);
 
@@ -33,7 +40,7 @@ public class UtilityChecks {
         return result;
     }
 
-    public static String requestSNAnswer(String type) {
+    public static boolean requestSNAnswer(String type) {
         String choice;
         do {
             System.out.println("Vuoi effettuare una " + type + "? s/n");
@@ -42,6 +49,6 @@ public class UtilityChecks {
                 System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
             }
         } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
-        return choice;
+        return choice.equalsIgnoreCase("s");
     }
 }

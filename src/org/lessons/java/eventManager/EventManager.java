@@ -38,10 +38,14 @@ public class EventManager {
         LocalDate date = null;
         do {
             System.out.println("Quando si terrà l'evento?");
-
-            int day = UtilityChecks.requestDateElement("Giorno", 1, 31);
-            int month = UtilityChecks.requestDateElement("Mese", 1, 12);
-            int year = UtilityChecks.requestDateElement("Anno", 0, 9999);
+            //prendo giorno mese e anno
+            System.out.println("Giorno");
+            int day = UtilityChecks.requestIntInRange(1, 31);
+            System.out.println("Mese");
+            int month = UtilityChecks.requestIntInRange(1, 12);
+            System.out.println("Anno");
+            int year = UtilityChecks.requestIntInRange(0, 9999);
+            //Questi metodi lanciano un eccezione se si invertono min e max, scelgo di non gestirla
 
             //creo la data
             try {
@@ -93,25 +97,15 @@ public class EventManager {
         System.out.println("\n-------------- BENVENUTO NEL MENU PER LA PRENOTAZIONE --------------");
 
         //chiedo all'utente se vuole procedere
-        String choice = UtilityChecks.requestSNAnswer("prenotazione");
-
-        boolean letsBook = choice.equalsIgnoreCase("s");
+        boolean letsBook = UtilityChecks.requestSNAnswer("prenotazione");
 
         //se l'utente vuole procedere
         if(letsBook) {
             //raccolgo il numero delle prenotazioni
-            int bookingNum = 0;
-            do {
-                System.out.println("Quanti posti vuoi prenotare?");
-                try {
-                    bookingNum = Integer.parseInt(Main.SCAN.nextLine());
-                    if(bookingNum <= 0) {
-                        System.out.println("Il numero deve essere maggiore di 0");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Inserisci un numero");
-                }
-            } while(bookingNum <= 0);
+            System.out.println("Quanti posti vuoi prenotare?");
+            int bookingNum = UtilityChecks.requestIntInRange(1, 9999);
+            //qua forse potrei usare come max del metodo il numero di posti massimo
+            //e dare un messaggio consono in caso di errore
 
             //provo a prenotare un numero di volte pari a quello desiderato dall'utente
             try {
@@ -132,26 +126,15 @@ public class EventManager {
 
     public void cancelMenu() {
         System.out.println("\n-------------- BENVENUTO NEL MENU PER LA DISDETTA --------------");
-        //chiedo all'utente se vuole procedere
-        String choice = UtilityChecks.requestSNAnswer("disdetta");
 
-        boolean letsCancel = choice.equalsIgnoreCase("s");
+        //chiedo all'utente se vuole procedere
+        boolean letsCancel = UtilityChecks.requestSNAnswer("disdetta");
 
         //se l'utente vuole procedere
         if(letsCancel) {
             //raccolgo il numero delle disdette
-            int cancelNum = 0;
-            do {
-                System.out.println("Quanti posti vuoi disdire?");
-                try {
-                    cancelNum = Integer.parseInt(Main.SCAN.nextLine());
-                    if(cancelNum <= 0) {
-                        System.out.println("Il numero deve essere maggiore di 0");
-                    }
-                } catch (NumberFormatException e) {
-                    System.out.println("Inserisci un numero");
-                }
-            } while(cancelNum <= 0);
+            System.out.println("Quanti posti vuoi disdire?");
+            int cancelNum = UtilityChecks.requestIntInRange(1, 9999);
 
             //provo a disdire un numero di volte pari a quello desiderato dall'utente
             try {
