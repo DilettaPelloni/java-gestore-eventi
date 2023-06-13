@@ -96,7 +96,7 @@ public class EventManager implements Closeable {
                 } catch (NumberFormatException e){
                     System.out.println("Inserisci un numero");
                 }
-            } while (year < 0);
+            } while (year <= 0);
 
             //creo la data
             try {
