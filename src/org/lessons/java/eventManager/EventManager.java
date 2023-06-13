@@ -91,15 +91,9 @@ public class EventManager {
 
     public void bookingMenu() {
         System.out.println("\n-------------- BENVENUTO NEL MENU PER LA PRENOTAZIONE --------------");
+
         //chiedo all'utente se vuole procedere
-        String choice;
-        do {
-            System.out.println("Vuoi effettuare una prenotazione? s/n");
-            choice = Main.SCAN.nextLine();
-            if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
-                System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
-            }
-        } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
+        String choice = UtilityChecks.requestSNAnswer("prenotazione");
 
         boolean letsBook = choice.equalsIgnoreCase("s");
 
@@ -124,7 +118,7 @@ public class EventManager {
                 for (int i = 0; i < bookingNum; i++) {
                     event.bookSeat();
                     //se va tutto bene (bookSeat non ha tirato eccezioni)
-                    System.out.println("Prenotazione di n° " + (i+1) +" posti avvenuta con successo");
+                    System.out.println("Prenotazione del " + (i+1) +"° posto avvenuta con successo");
                 }
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
@@ -139,14 +133,7 @@ public class EventManager {
     public void cancelMenu() {
         System.out.println("\n-------------- BENVENUTO NEL MENU PER LA DISDETTA --------------");
         //chiedo all'utente se vuole procedere
-        String choice;
-        do {
-            System.out.println("Vuoi effettuare una disdetta? s/n");
-            choice = Main.SCAN.nextLine();
-            if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
-                System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
-            }
-        } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
+        String choice = UtilityChecks.requestSNAnswer("disdetta");
 
         boolean letsCancel = choice.equalsIgnoreCase("s");
 
@@ -171,7 +158,7 @@ public class EventManager {
                 for (int i = 0; i < cancelNum; i++) {
                     event.cancelSeat();
                     //se va tutto bene (cancelSeat non ha tirato eccezioni)
-                    System.out.println("Disdetta di n° " + (i+1) +" posti avvenuta con successo");
+                    System.out.println("Disdetta del " + (i+1) +"° posto avvenuta con successo");
                 }
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());

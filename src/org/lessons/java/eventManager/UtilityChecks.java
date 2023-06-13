@@ -32,4 +32,16 @@ public class UtilityChecks {
         //restituisco il risultato
         return result;
     }
+
+    public static String requestSNAnswer(String type) {
+        String choice;
+        do {
+            System.out.println("Vuoi effettuare una " + type + "? s/n");
+            choice = Main.SCAN.nextLine();
+            if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
+                System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
+            }
+        } while (!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n"));
+        return choice;
+    }
 }
