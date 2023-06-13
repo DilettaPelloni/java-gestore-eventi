@@ -65,20 +65,8 @@ public class EventManager {
         } while (!isValid);
 
         //raccolgo il numero massimo di posti ---------------------------------------------------------------
-        int seatCapacity = 0;
-        do {
-            System.out.println("Quanti posti disponibili ci sono?");
-            try {
-                seatCapacity = Integer.parseInt(Main.SCAN.nextLine());
-                //se il valore non è valido
-                if(!Event.isSeatCapacityValid(seatCapacity)) {
-                    System.out.println("Il numero di posti " + seatCapacity + " non è valido. Deve essere maggiore di 0.");
-                }
-            } catch (NumberFormatException e){
-                System.out.println("Inserisci un numero");
-            }
-        //ripeto finché non ho un numero valido
-        } while (!Event.isSeatCapacityValid(seatCapacity));
+        System.out.println("Quanti posti disponibili ci sono?");
+        int seatCapacity = UtilityChecks.requestIntInRange(1, 9999);
 
         //creo il nuovo evento
         try {
