@@ -7,18 +7,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-//implemento Closeable così chi istanzia EventManager riceve un warning se non lo chiude alla fine
-public class EventManager implements Closeable {
+public class EventManager {
 
     //ATTRIBUTI -----------------------------------------------------------------------------------------
     Event event; //per ora è prevista la gestione di un singolo evento
-    Scanner scan;
-
-    //COSTRUTTORE
-    public EventManager () {
-        //quando creo un'istanza apro lo scanner
-        scan = new Scanner(System.in);
-    }
 
     //GETTER -----------------------------------------------------------------------------------------
     public Event getEvent() {
@@ -26,12 +18,6 @@ public class EventManager implements Closeable {
     }
 
     //METODI -----------------------------------------------------------------------------------------
-    //metodo close per chiudere lo scanner
-    public void close() {
-        if(scan != null) {
-            scan.close();
-        }
-    }
 
     public void createNewEvent() {
         System.out.println("\n-------------- BENVENUTO NEL MENU PER LA CREAZIONE DI UN NUOVO EVENTO --------------");
@@ -39,7 +25,7 @@ public class EventManager implements Closeable {
         String title;
         do {
             System.out.println("Come si chiamerà l'evento?");
-            title = scan.nextLine();
+            title = Main.SCAN.nextLine();
             //se il titolo non è valido stampo un messaggio
             if(!Event.isTitleValid(title)) {
                 System.out.println("Il titolo è un campo obbligatorio.");
@@ -53,50 +39,9 @@ public class EventManager implements Closeable {
         do {
             System.out.println("Quando si terrà l'evento?");
 
-            //prendo il giorno
-            int day = 0;
-            do {
-                System.out.print("Giorno: ");
-                try {
-                    day = Integer.parseInt(scan.nextLine());
-                    //se il giorno non è compreso fra 1 e 31
-                    if(day < 1 || day > 31 ) {
-                        System.out.println("Il giorno deve essere un numero positivo compreso fra 1 e 31");
-                    }
-                } catch (NumberFormatException e){
-                    System.out.println("Inserisci un numero");
-                }
-            } while (day < 1 || day > 31);
-
-            //prendo il mese
-            int month = 0;
-            do {
-                System.out.print("Mese: ");
-                try {
-                    month = Integer.parseInt(scan.nextLine());
-                    //se il giorno non è compreso fra 1 e 31
-                    if(month < 1 || month > 12 ) {
-                        System.out.println("Il mese deve essere un numero positivo compreso fra 1 e 12");
-                    }
-                } catch (NumberFormatException e){
-                    System.out.println("Inserisci un numero");
-                }
-            } while (month < 1 || month > 12);
-
-            //prendo l'anno
-            int year = 0;
-            do {
-                System.out.print("Anno: ");
-                try {
-                    year = Integer.parseInt(scan.nextLine());
-                    //se l'anno è negativo
-                    if(year < 0) {
-                        System.out.println("L'anno deve essere un numero positivo");
-                    }
-                } catch (NumberFormatException e){
-                    System.out.println("Inserisci un numero");
-                }
-            } while (year <= 0);
+            int day = UtilityChecks.requestDateElement("Giorno", 1, 31);
+            int month = UtilityChecks.requestDateElement("Mese", 1, 12);
+            int year = UtilityChecks.requestDateElement("Anno", 0, 9999);
 
             //creo la data
             try {
@@ -120,7 +65,7 @@ public class EventManager implements Closeable {
         do {
             System.out.println("Quanti posti disponibili ci sono?");
             try {
-                seatCapacity = Integer.parseInt(scan.nextLine());
+                seatCapacity = Integer.parseInt(Main.SCAN.nextLine());
                 //se il valore non è valido
                 if(!Event.isSeatCapacityValid(seatCapacity)) {
                     System.out.println("Il numero di posti " + seatCapacity + " non è valido. Deve essere maggiore di 0.");
@@ -150,7 +95,7 @@ public class EventManager implements Closeable {
         String choice;
         do {
             System.out.println("Vuoi effettuare una prenotazione? s/n");
-            choice = scan.nextLine();
+            choice = Main.SCAN.nextLine();
             if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
                 System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
             }
@@ -165,7 +110,7 @@ public class EventManager implements Closeable {
             do {
                 System.out.println("Quanti posti vuoi prenotare?");
                 try {
-                    bookingNum = Integer.parseInt(scan.nextLine());
+                    bookingNum = Integer.parseInt(Main.SCAN.nextLine());
                     if(bookingNum <= 0) {
                         System.out.println("Il numero deve essere maggiore di 0");
                     }
@@ -197,7 +142,7 @@ public class EventManager implements Closeable {
         String choice;
         do {
             System.out.println("Vuoi effettuare una disdetta? s/n");
-            choice = scan.nextLine();
+            choice = Main.SCAN.nextLine();
             if(!choice.equalsIgnoreCase("s") && !choice.equalsIgnoreCase("n")) {
                 System.out.println("L'input " + choice + " non è valido. Inserire 's' o 'n'.");
             }
@@ -212,7 +157,7 @@ public class EventManager implements Closeable {
             do {
                 System.out.println("Quanti posti vuoi disdire?");
                 try {
-                    cancelNum = Integer.parseInt(scan.nextLine());
+                    cancelNum = Integer.parseInt(Main.SCAN.nextLine());
                     if(cancelNum <= 0) {
                         System.out.println("Il numero deve essere maggiore di 0");
                     }

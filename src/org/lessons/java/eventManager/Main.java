@@ -1,14 +1,19 @@
 package org.lessons.java.eventManager;
 
 //IMPORT (vengono usati nei test)
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+
+    public final static Scanner SCAN = new Scanner(System.in);
+
+    public static void main(String[] args){
 
         //creo un nuovo EventManager
         EventManager em = new EventManager();
@@ -23,7 +28,7 @@ public class Main {
         em.cancelMenu();
 
         //chiudo lo scanner
-        em.close();
+        SCAN.close();
 
 //        //TEST METODI CLASSE CONCERT --------------------------
 //        Concert concert = new Concert(
