@@ -91,7 +91,7 @@ public class Event {
         // ---------- VERIFICO IL NUMERO DI POSTI DISPONIBILI ----------
         //se i posti disponibili sono pari o minori di 0 non è possibile prenotare
         if(getAvailableSeats() <= 0) {
-            throw new RuntimeException("Non ci sono sufficienti posti disponibili. Non è possibile procedere con la prenotazione");
+            throw new RuntimeException("Non ci più posti disponibili.");
         }
 
         // ---------- SE CI SONO TUTTI I PRESUPPOSTI ----------

@@ -178,15 +178,16 @@ public class EventManager implements Closeable {
             try {
                 for (int i = 0; i < bookingNum; i++) {
                     event.bookSeat();
+                    //se va tutto bene (bookSeat non ha tirato eccezioni)
+                    System.out.println("Prenotazione di n° " + (i+1) +" posti avvenuta con successo");
                 }
-                //se va tutto bene (bookSeat non ha tirato eccezioni)
-                System.out.println("Prenotazione di n° " + bookingNum +" posti avvenuta con successo");
-                System.out.println("\nStato dell'evento: ");
-                System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
-                System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
+            //Mostro lo stato dei posti
+            System.out.println("\nStato dell'evento: ");
+            System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
+            System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
         }
     }
 
@@ -224,15 +225,16 @@ public class EventManager implements Closeable {
             try {
                 for (int i = 0; i < cancelNum; i++) {
                     event.cancelSeat();
+                    //se va tutto bene (cancelSeat non ha tirato eccezioni)
+                    System.out.println("Disdetta di n° " + (i+1) +" posti avvenuta con successo");
                 }
-                //se va tutto bene (cancelSeat non ha tirato eccezioni)
-                System.out.println("Disdetta di n° " + cancelNum +" posti avvenuta con successo");
-                System.out.println("\nStato dell'evento: ");
-                System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
-                System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
             } catch (RuntimeException e) {
                 System.out.println(e.getMessage());
             }
+            //Mostro lo stato dei posti
+            System.out.println("\nStato dell'evento: ");
+            System.out.println("Numero di posti prenotati: " + event.getBookedSeats());
+            System.out.println("Numero di posti disponibili: " + event.getAvailableSeats());
         }
     }
 
