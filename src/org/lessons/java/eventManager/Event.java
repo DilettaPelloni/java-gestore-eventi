@@ -2,6 +2,7 @@ package org.lessons.java.eventManager;
 
 //IMPORT
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Event {
 
@@ -24,7 +25,8 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            throw new RuntimeException("La data " + date + " non è valida. Deve essere successiva alla data odierna.");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            throw new RuntimeException("La data " + date.format(formatter) + " non è valida. Deve essere successiva alla data odierna.");
         }
         //numero di posti totali
         if(isSeatCapacityValid(SEAT_CAPACITY)) {
@@ -67,7 +69,8 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            throw new RuntimeException("La data " + date + " non è valida. Deve essere successiva alla data odierna.");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            throw new RuntimeException("La data " + date.format(formatter) + " non è valida. Deve essere successiva alla data odierna.");
         }
     }
 
@@ -113,7 +116,8 @@ public class Event {
     //override ---------
     @Override
     public String toString() {
-        return "Titolo: " + title + ", Data: " + date;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return "Titolo: " + title + ", Data: " + date.format(formatter);
     }
 
     //validatori ---------
@@ -123,17 +127,17 @@ public class Event {
         //la confronto con la data dell'evento
         return today.isAfter(this.date);
     }
-    private boolean isDateValid(LocalDate date) {
+    public static boolean isDateValid(LocalDate date) {
         //prendo la data di oggi
         LocalDate today = LocalDate.now();
         //la confronto con la data ricevuta
         return date.isAfter(today);
     }
-    private boolean isSeatCapacityValid(int SEAT_CAPACITY) {
+    public static boolean isSeatCapacityValid(int SEAT_CAPACITY) {
         //il numero di posti totali deve essere maggiore di 0
         return SEAT_CAPACITY > 0;
     }
-    private boolean isTitleValid(String title) {
+    public static boolean isTitleValid(String title) {
         return title != null && !title.isBlank();
     }
 
