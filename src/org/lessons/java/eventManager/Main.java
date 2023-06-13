@@ -13,9 +13,6 @@ public class Main {
         //creo un nuovo EventManager
         EventManager em = new EventManager();
 
-        //apro lo scanner
-        em.openScanner();
-
         //creo un nuovo evento
         em.createNewEvent();
 
@@ -26,7 +23,7 @@ public class Main {
         em.cancelMenu();
 
         //chiudo lo scanner
-        em.closeScanner();
+        em.close();
 
 //        //TEST METODI CLASSE CONCERT --------------------------
 //        Concert concert = new Concert(

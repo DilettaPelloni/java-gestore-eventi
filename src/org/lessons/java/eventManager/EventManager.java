@@ -1,16 +1,24 @@
 package org.lessons.java.eventManager;
 
 //IMPORT
+import java.io.Closeable;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class EventManager {
+//implemento Closeable così chi istanzia EventManager riceve un warning se non lo chiude alla fine
+public class EventManager implements Closeable {
 
     //ATTRIBUTI -----------------------------------------------------------------------------------------
     Event event; //per ora è prevista la gestione di un singolo evento
     Scanner scan;
+
+    //COSTRUTTORE
+    public EventManager () {
+        //quando creo un'istanza apro lo scanner
+        scan = new Scanner(System.in);
+    }
 
     //GETTER -----------------------------------------------------------------------------------------
     public Event getEvent() {
@@ -18,10 +26,8 @@ public class EventManager {
     }
 
     //METODI -----------------------------------------------------------------------------------------
-    public void openScanner() {
-        scan = new Scanner(System.in);
-    }
-    public void closeScanner() {
+    //metodo close per chiudere lo scanner
+    public void close() {
         if(scan != null) {
             scan.close();
         }
@@ -135,6 +141,7 @@ public class EventManager {
         //stampo l'evento
         System.out.println("Nuovo evento creato con successo:");
         System.out.println(event);
+
     }
 
     public void bookingMenu() {
@@ -181,8 +188,6 @@ public class EventManager {
                 System.out.println(e.getMessage());
             }
         }
-
-
     }
 
     public void cancelMenu() {
