@@ -11,12 +11,12 @@ public class Event {
     private LocalDate date;
     private int bookedSeats;
     //costanti --------
-    private final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    private final int SEAT_CAPACITY;
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private final int seatCapacity;
 
 
     //COSTRUTTORE -----------------------------------------------------------------------------------------
-    public Event(String title, LocalDate date, int SEAT_CAPACITY) throws RuntimeException {
+    public Event(String title, LocalDate date, int seatCapacity) throws RuntimeException {
         //titolo
         if(isTitleValid(title)) {
             this.title = title;
@@ -27,13 +27,13 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            throw new RuntimeException("La data " + date.format(DATE_FORMATTER) + " non è valida. Deve essere successiva alla data odierna.");
+            throw new RuntimeException("La data " + date.format(dateFormatter) + " non è valida. Deve essere successiva alla data odierna.");
         }
         //numero di posti totali
-        if(isSeatCapacityValid(SEAT_CAPACITY)) {
-            this.SEAT_CAPACITY = SEAT_CAPACITY;
+        if(isSeatCapacityValid(seatCapacity)) {
+            this.seatCapacity = seatCapacity;
         } else {
-            throw new RuntimeException("Il numero di posti " + SEAT_CAPACITY + " non è valido. Deve essere maggiore di 0.");
+            throw new RuntimeException("Il numero di posti " + seatCapacity + " non è valido. Deve essere maggiore di 0.");
         }
         //posti prenotati
         this.bookedSeats = 0;
@@ -48,16 +48,16 @@ public class Event {
         return date;
     }
     public String getFormattedDate(){
-        return date.format(DATE_FORMATTER);
+        return date.format(dateFormatter);
     }
     public int getSeatsCapacity() {
-        return SEAT_CAPACITY;
+        return seatCapacity;
     }
     public int getBookedSeats() {
         return bookedSeats;
     }
     public int getAvailableSeats() {
-        return SEAT_CAPACITY - bookedSeats;
+        return seatCapacity - bookedSeats;
     }
 
 
@@ -73,7 +73,7 @@ public class Event {
         if(isDateValid(date)) {
             this.date = date;
         } else {
-            throw new RuntimeException("La data " + date.format(DATE_FORMATTER) + " non è valida. Deve essere successiva alla data odierna.");
+            throw new RuntimeException("La data " + date.format(dateFormatter) + " non è valida. Deve essere successiva alla data odierna.");
         }
     }
 
@@ -119,7 +119,7 @@ public class Event {
     //override ---------
     @Override
     public String toString() {
-        return "Titolo: " + title + ", Data: " + date.format(DATE_FORMATTER);
+        return "Data: " + date.format(dateFormatter) + ", Titolo: " + title + "\n";
     }
 
     //validatori ---------
@@ -136,9 +136,9 @@ public class Event {
         //la confronto con la data ricevuta
         return date.isAfter(today);
     }
-    public static boolean isSeatCapacityValid(int SEAT_CAPACITY) {
+    public static boolean isSeatCapacityValid(int seatCapacity) {
         //il numero di posti totali deve essere maggiore di 0
-        return SEAT_CAPACITY > 0;
+        return seatCapacity > 0;
     }
     public static boolean isTitleValid(String title) {
         return title != null && !title.isBlank();

@@ -13,12 +13,12 @@ public class Concert extends Event{
     private LocalTime time;
     private BigDecimal price;
     //costanti -------
-    private final DateTimeFormatter TIME_FORMATTER = DateTimeFormatter.ofPattern("HH:mm");
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
 
     //COSTRUTTORE -----------------------------------------------------------------------------------------
-    public Concert(String title, LocalDate date, int SEAT_CAPACITY, LocalTime time, BigDecimal price) throws RuntimeException {
+    public Concert(String title, LocalDate date, int seatCapacity, LocalTime time, BigDecimal price) throws RuntimeException {
         //richiamo il costruttore di Event
-        super(title, date, SEAT_CAPACITY);
+        super(title, date, seatCapacity);
         //ora
         this.time = time;
         //prezzo
@@ -38,7 +38,7 @@ public class Concert extends Event{
         return price;
     }
     public String getFormattedTime(){
-        return time.format(TIME_FORMATTER);
+        return time.format(timeFormatter);
     }
     public String getFormattedDateTime() {
         return getFormattedDate() + " - " + getFormattedTime();
