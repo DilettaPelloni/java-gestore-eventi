@@ -84,7 +84,7 @@ public class Event {
     public void bookSeat() throws RuntimeException {
         // ------------- VERIFICO LA DATA -------------
         //se la data di oggi è successiva alla data dell'evento non è possibile prenotare
-        if(isEventPast()) {
+        if(isDateValid(date)) {
             throw new RuntimeException("L'evento è trascorso. Non è possibile prenotare");
         }
 
@@ -101,7 +101,7 @@ public class Event {
     public void cancelSeat() {
         // ------------- VERIFICO LA DATA -------------
         //se la data di oggi è successiva alla data dell'evento non è possibile disdire
-        if(isEventPast()) {
+        if(isDateValid(date)) {
             throw new RuntimeException("L'evento è trascorso. Non è possibile disdire");
         }
 
@@ -128,13 +128,7 @@ public class Event {
     }
 
     //validatori ---------
-    private boolean isEventPast() {
-        //prendo la data di oggi
-        LocalDate today = LocalDate.now();
-        //la confronto con la data dell'evento
-        return today.isAfter(this.date);
-    }
-    //ho reso i seguenti validatori statici così posso usarli per validare al di fuori della classe
+    //ho reso i validatori statici così posso usarli per validare al di fuori della classe
     public static boolean isDateValid(LocalDate date) {
         //prendo la data di oggi
         LocalDate today = LocalDate.now();
