@@ -53,7 +53,7 @@ public class ProgrammEventi {
 
     public int howManyEvents(){ return events.size(); }
 
-    public void emptyEventsList() { events.removeAll(events); }
+    public void emptyEventsList() { events.clear(); }
 
     //override
     @Override
